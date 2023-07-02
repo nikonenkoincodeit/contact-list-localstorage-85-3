@@ -1,5 +1,6 @@
 import { uid } from "uid";
 import { formEL } from "./refs";
+import { sentData } from "./api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/style.css";
 
@@ -12,6 +13,7 @@ function onSubmitForm(e) {
 
   const { name, number, email } = e.target.elements;
   const currentObject = createObject(name.value, number.value, email.value);
+  sentData(currentObject)
 }
 
 function createObject(name, number, email) {

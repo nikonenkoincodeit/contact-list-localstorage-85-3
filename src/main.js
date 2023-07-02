@@ -1,6 +1,6 @@
 import { uid } from "uid";
 import { formEL, cardsEl } from "./refs";
-import { sentData, getData } from "./api";
+import { sentData, getData, saveData } from "./api";
 import { createCard } from "./markup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/style.css";
@@ -27,4 +27,32 @@ function createObject(name, number, email) {
 
 function createMarkup(markup) {
   cardsEl.insertAdjacentHTML("beforeend", markup);
+}
+
+document.addEventListener("DOMContentLoaded", onLoud);
+
+function onLoud() {
+  const currentDates = getData();
+  if (currentDates.length === 0) {
+    return;
+  }
+
+  const card = createCard(currentDates);
+  createMarkup(card);
+}
+
+cardsEl.addEventListener("click", onClickRemoveCard);
+
+function onClickRemoveCard(e) {
+  if (!e.target.classList.contains("btn-close")) {
+    return;
+  }
+
+  const card = e.target.closest(".js-wrap-card");
+  const idCard = card.dataset.cardid;
+  const newArray = getData().filter(({ id }) => id !== idCard);
+
+  saveData(newArray);
+
+  card.remove();
 }

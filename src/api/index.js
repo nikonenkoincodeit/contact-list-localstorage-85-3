@@ -2,7 +2,7 @@ const STORAGE_KEY = "list";
 export function sentData(object) {
   const array = getData();
   array.push(object);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(array));
+  saveData(array);
 }
 export function getData() {
   try {
@@ -11,4 +11,8 @@ export function getData() {
   } catch (error) {
     console.log(error.message);
   }
+}
+
+export function saveData(array) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(array));
 }

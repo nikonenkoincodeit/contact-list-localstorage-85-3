@@ -1,6 +1,7 @@
 import { uid } from "uid";
-import { formEL } from "./refs";
-import { sentData } from "./api";
+import { formEL, cardsEl } from "./refs";
+import { sentData, getData } from "./api";
+import { createCard } from "./markup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/style.css";
 
@@ -13,9 +14,17 @@ function onSubmitForm(e) {
 
   const { name, number, email } = e.target.elements;
   const currentObject = createObject(name.value, number.value, email.value);
-  sentData(currentObject)
+  sentData(currentObject);
+
+  const card = createCard([currentObject]);
+  createMarkup(card);
+  e.currentTarget.reset();
 }
 
 function createObject(name, number, email) {
   return { createdAt: Date.now(), id: uid(), name, number, email };
+}
+
+function createMarkup(markup) {
+  cardsEl.insertAdjacentHTML("beforeend", markup);
 }

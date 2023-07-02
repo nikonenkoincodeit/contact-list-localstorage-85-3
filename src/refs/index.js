@@ -1,2 +1,3 @@
 const formEL = document.querySelector(".js-form");
-export { formEL };
+const cardsEl = document.querySelector(".js-contacts-container");
+export { formEL, cardsEl };
